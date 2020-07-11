@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<main role="main" class="container">
+    {% load static %}
+    <div class="jumbotron">
+        {% if messages %}
+        <ul class="alert alert-primary alert-dismissible fade show">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </ul>
+        {% endif %}
+        <div class="container">
+            <div>
+                <a class="btn btn-outline-dark my-2" href="{% url 'export_users_xls' %}" role="button">Export to
+                    Excel</a>
+            </div>
+            <h4 class="title">{{title}}</h4>
+            <br>
+            <table class="table table-striped table-bordered table-primary ">
+                <tr>
+                    <th>#</th>
+                    <th>PC NAME</th>
+                    <th>MAC ADDR</th>
+                    <th>OS</th>
+                    <th>IP ADDRESS</th>
+                    <th>USER’S NAME</th>
+                    <th>LOCATION</th>
+                    <th>INSTALLATION_DATE</th>
+                    <th>DEFAULT ENTRY TIME</th>
+                    <th>DELETE</th>
+
+                </tr>
+                {% for instance in queryset %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><a href="{% url 'computer_edit' id=instance.id %}"> {{instance.computer_name}}</a></td>
+                    <td>{{instance.MAC_address}}</td>
+                    <td>{{instance.operating_system.all}}</td>
+                    <td>{{instance.IP_address}}</td>
+                    <td>{{instance.users_name}}</td>
+                    <td>{{instance.location}}</td>
+                    <td>{{instance.Installation_date}}</td>
+                    <td>{{instance.timestamp}}</td>
+                    <td><a href="{% url 'computer_delete' id=instance.id %}">Delete</a></td>
+
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+
+</main>
+
+
+{% endblock %}

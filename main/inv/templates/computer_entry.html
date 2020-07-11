@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<main role="main" class="container">
+    {% load static %}
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 class="title">{{title}}</h4>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <input class="btn btn-outline-success" type="submit" value="Save"/>
+                </form>
+            </div>
+        </div>
+</main>
+
+
+{% endblock %}
